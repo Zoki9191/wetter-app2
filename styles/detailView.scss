@@ -1,0 +1,108 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.current-weather {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-shadow: v.$text-shadow;
+
+  &__location {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
+  &__current-temperature {
+    margin: 0.5rem 0;
+    font-size: 4.5rem;
+    font-weight: 200;
+  }
+
+  &__condition {
+    margin-bottom: 0.25rem;
+  }
+}
+
+.today-forecast {
+  margin-top: 2rem;
+  @include m.card;
+
+  &__conditions {
+    @include m.cardHeader;
+  }
+
+  &__hours {
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
+    gap: 0.5rem;
+  }
+
+  .hourly-forecast {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+
+  &__icon {
+    width: 4rem;
+  }
+}
+
+.forecast {
+  @include m.card;
+  margin-top: 2rem;
+
+  &__title {
+    @include m.cardHeader;
+  }
+
+  &__days {
+    display: flex;
+    flex-direction: column;
+    gap: v.$card-header-gap;
+    width: 100%;
+  }
+}
+
+.forecast-day {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: v.$card-header-gap;
+  border-bottom: v.$border;
+
+  &:last-child {
+    padding: 0;
+    border: none;
+  }
+
+  &__day {
+    width: 2rem;
+  }
+
+  &__icon {
+    width: 2.5rem;
+  }
+}
+
+.mini-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.mini-stat {
+  @include m.card;
+
+  &__value {
+    margin: 1rem 0;
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,53 @@
+@use "sass:color";
+@use "mixins" as m;
+@use "detailView";
+@use "variables" as v;
+@use "loading";
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rubik+Scribble&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+body {
+  @include m.largeScreens {
+    background-color: grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: color.scale(v.$background, $lightness: 10%);
+  }
+}
+
+#app {
+  background: linear-gradient(0deg, v.$elevation-2 0%, v.$background 50%);
+  color: v.$text-color;
+  padding: 1rem;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+
+  @include m.largeScreens {
+    width: 400px;
+    height: v.$max-height-desktop;
+    min-height: unset;
+    overflow: auto;
+    border-radius: v.$border-radius;
+    box-shadow: 1px 1px 5px black;
+  }
+
+  &.show-background {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)),
+      var(--detail-condition-image);
+
+    background-size: cover;
+    background-position: center;
+  }
+}
