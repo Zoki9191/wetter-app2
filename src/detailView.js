@@ -88,7 +88,7 @@ function getTodayForecastHtml(
                <div class="hourly-forecast">
                     <div class="hourly-forecast__time"> ${
                       i === 0 ? "Jetzt" : formatHourlyTime(hour.time) + " Uhr"
-                    } Uhr</div>
+                    } </div>
 
                         <img
                           src="http:${hour.condition.icon}"
