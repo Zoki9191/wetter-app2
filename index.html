@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
@@ -7,7 +7,63 @@
     <title>wetter-app2</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="main-menu">
+        <div class="main-menu__heading">
+          Wetter <button class="main-menu__edit">Bearbeiten</button>
+        </div>
+        <div class="main-menu__search-bar">
+          <input
+            type="text"
+            class="main-menu__search-input"
+            placeholder="Nach Stadt suchen..."
+          />
+        </div>
+        <div class="main-menu__cities-list">
+          <div class="city-wrapper">
+            <div class="city">
+              <div class="city__left-column">
+                <h2 class="city_name">Mannheim</h2>
+                <div class="city__country">Germany</div>
+                <div class="city__condition">Sonnig</div>
+              </div>
+              <div class="city__right-column">
+                <h2 class="city__temperature">20°</h2>
+                <div class="city__min-max-temperature">H:21° T:8°</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="city-wrapper">
+            <div class="city">
+              <div class="city__left-column">
+                <h2 class="city_name">London</h2>
+                <div class="city__country">England</div>
+                <div class="city__condition">Bewölkt</div>
+              </div>
+              <div class="city__right-column">
+                <h2 class="city__temperature">20°</h2>
+                <div class="city__min-max-temperature">H:21° T:8°</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="city-wrapper">
+            <div class="city">
+              <div class="city__left-column">
+                <h2 class="city_name">Tokyo</h2>
+                <div class="city__country">Japan</div>
+                <div class="city__condition">Sonnig</div>
+              </div>
+              <div class="city__right-column">
+                <h2 class="city__temperature">20°</h2>
+                <div class="city__min-max-temperature">H:21° T:8°</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script type="module" src="/src/main.js"></script>
   </body>

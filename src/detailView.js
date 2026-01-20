@@ -91,7 +91,7 @@ function getTodayForecastHtml(
                     } </div>
 
                         <img
-                          src="http:${hour.condition.icon}"
+                          src="https:${hour.condition.icon}"
                           alt=""
                           class="hourly-forecast__icon"
                         />
