@@ -45,6 +45,12 @@
   grid-template-columns: max-content max-content;
   justify-content: space-between;
   cursor: pointer;
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)),
+    var(--condition-image);
+
+  background-size: cover;
+  background-position: 50% 25%;
   text-shadow: v.$text-shadow;
 
   &__name {
@@ -64,5 +70,12 @@
     font-size: 2.5rem;
     font-weight: 300;
     text-align: right;
+  }
+
+  &__right-column {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
