@@ -1,4 +1,8 @@
-import { getForecastWeather } from "./api";
+import {
+  getFavoriteCities,
+  getForecastWeather,
+  removeCityFromFavorites,
+} from "./api";
 import { loadDetailView } from "./detailView";
 import { renderLoadingScreen } from "./loading";
 import { rootElement } from "./main";
@@ -43,8 +47,17 @@ function getMenuHeaderHtml() {
     `;
 }
 
+const deleteIcon = `
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg> `;
+
 async function getCityListHtml() {
-  const favoriteCities = ["Mannheim", "London", "Tokyo"];
+  const favoriteCities = getFavoriteCities();
+
+  if (!favoriteCities || favoriteCities.length < 1) {
+    return "Noch keine Favoriten gespeichert.";
+  }
 
   const favoriteCityElements = [];
 
@@ -62,6 +75,7 @@ async function getCityListHtml() {
     const cityHtml = `
         
         <div class="city-wrapper">
+            <div class="city-wrapper__delete" data-city-name="${city}">${deleteIcon}</div>
             <div
                 class="city"
                 data-city-name="${city}"
@@ -101,6 +115,36 @@ async function getCityListHtml() {
 }
 
 function registerEventListeners() {
+  const editButton = document.querySelector(".main-menu__edit");
+  const deleteButtons = document.querySelectorAll(".city-wrapper__delete");
+
+  deleteButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      removeCityFromFavorites(btn.getAttribute("data-city-name"));
+      btn.parentElement.remove();
+    });
+  });
+
+  editButton.addEventListener("click", () => {
+    const EDIT_ATTRIBUTE = "data-edit-mode";
+
+    if (!editButton.getAttribute(EDIT_ATTRIBUTE)) {
+      editButton.setAttribute(EDIT_ATTRIBUTE, "true");
+      editButton.textContent = "Fertig";
+
+      deleteButtons.forEach((btn) => {
+        btn.classList.add("city-wrapper__delete--show");
+      });
+    } else {
+      editButton.removeAttribute(EDIT_ATTRIBUTE);
+      editButton.textContent = "Bearbeiten";
+
+      deleteButtons.forEach((btn) => {
+        btn.classList.remove("city-wrapper__delete--show");
+      });
+    }
+  });
+
   const cities = document.querySelectorAll(".city");
 
   cities.forEach((city) => {

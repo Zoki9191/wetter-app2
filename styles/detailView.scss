@@ -1,6 +1,18 @@
 @use "variables" as v;
 @use "mixins" as m;
 
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+
+  &__back,
+  &__favorite {
+    width: 2.5rem;
+    filter: drop-shadow(v.$text-shadow);
+    cursor: pointer;
+  }
+}
+
 .current-weather {
   margin-top: 2rem;
   display: flex;
