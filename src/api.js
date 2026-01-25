@@ -4,7 +4,7 @@ const FAVORITE_CITIES_KEY = "favorite-cities";
 
 export async function getForecastWeather(location, days = 3) {
   const response = await fetch(
-    `${API_BASE_URL}/forecast.json?key=${API_KEY}&q=${location}&lang=de&days=${days}`,
+    `${API_BASE_URL}/forecast.json?key=${API_KEY}&q=id:${location}&lang=de&days=${days}`,
   );
 
   const weatherData = await response.json();

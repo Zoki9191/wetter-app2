@@ -122,6 +122,10 @@
 
   &__condition {
     margin-top: 2rem;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   &__temperature {

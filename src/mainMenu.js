@@ -77,10 +77,11 @@ async function getCityListHtml() {
     const cityHtml = `
         
         <div class="city-wrapper">
-            <div class="city-wrapper__delete" data-city-name="${city}">${deleteIcon}</div>
+            <div class="city-wrapper__delete" data-city-id="${city}">${deleteIcon}</div>
             <div
                 class="city"
-                data-city-name="${city}"
+                data-city-name="${location.name}"
+                data-city-id="${city}"
                     ${
                       conditionImage
                         ? ` style="
@@ -119,7 +120,7 @@ async function getCityListHtml() {
 function renderSearchResults(searchResults) {
   const searchResultsElements = searchResults.map(
     (result) => ` 
-          <div class="search-result">
+          <div class="search-result" data-city-name="${result.name}" data-city-id="${result.id}">
               <h3 class="search-result__name">${result.name}</h3>
               <p class="search-result__country">${result.country}</p>
           </div>
@@ -132,6 +133,24 @@ function renderSearchResults(searchResults) {
   const searchResultsDiv = document.querySelector(".main-menu__search-results");
 
   searchResultsDiv.innerHTML = searchResultsHtml;
+}
+
+function renderSearchResultsLoading() {
+  const searchResultsDiv = document.querySelector(".main-menu__search-results");
+
+  searchResultsDiv.innerHTML = `<div class="search-result"> Lade Vorschläge...</div>`;
+}
+
+function registerSearchResultsEventListeners() {
+  const searchResults = document.querySelectorAll(".search-result");
+
+  searchResults.forEach((searchResult) => {
+    searchResult.addEventListener("click", () => {
+      const cityName = searchResult.getAttribute("data-city-name");
+      const cityId = searchResult.getAttribute("data-city-id");
+      loadDetailView(cityName, cityId);
+    });
+  });
 }
 
 function registerEventListeners() {
@@ -173,11 +192,12 @@ function registerEventListeners() {
     let searchResults = [];
 
     if (q.length > 1) {
+      renderSearchResultsLoading();
       searchResults = await searchLocation(q);
-      console.log(searchResults);
     }
 
     renderSearchResults(searchResults);
+    registerSearchResultsEventListeners();
   });
 
   const cities = document.querySelectorAll(".city");
@@ -185,8 +205,9 @@ function registerEventListeners() {
   cities.forEach((city) => {
     city.addEventListener("click", () => {
       const cityName = city.getAttribute("data-city-name");
+      const cityId = city.getAttribute("data-city-id");
 
-      loadDetailView(cityName);
+      loadDetailView(cityName, cityId);
     });
   });
 }
