@@ -29,6 +29,7 @@
 
   &__search-bar {
     width: 100%;
+    position: relative;
   }
 
   &__search-input {
@@ -38,6 +39,36 @@
     font-size: 1rem;
     border-radius: v.$border-radius;
     border: none;
+  }
+
+  &__search-results {
+    position: absolute;
+    z-index: 2;
+    transform: translateZ(100px);
+    left: 0;
+    right: 0;
+    background-color: v.$elevation;
+    border-bottom-right-radius: v.$border-radius;
+    border-bottom-left-radius: v.$border-radius;
+
+    .search-result {
+      padding: 0.75rem;
+      border-bottom: v.$border;
+      cursor: pointer;
+
+      &:last-child {
+        border: none;
+      }
+
+      &:hover {
+        background-color: v.$elevation-2;
+      }
+
+      &__name {
+        font-size: 1.25rem;
+        font-weight: 400;
+      }
+    }
   }
 
   &__cities-list {

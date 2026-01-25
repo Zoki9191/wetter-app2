@@ -14,6 +14,16 @@ export async function getForecastWeather(location, days = 3) {
   return weatherData;
 }
 
+export async function searchLocation(q) {
+  const response = await fetch(
+    `${API_BASE_URL}/search.json?key=${API_KEY}&q=${q}&lang=de`,
+  );
+
+  const searchResults = await response.json();
+
+  return searchResults;
+}
+
 export function getFavoriteCities() {
   return JSON.parse(localStorage.getItem(FAVORITE_CITIES_KEY)) || [];
 }

@@ -2,6 +2,7 @@ import {
   getFavoriteCities,
   getForecastWeather,
   removeCityFromFavorites,
+  searchLocation,
 } from "./api";
 import { loadDetailView } from "./detailView";
 import { renderLoadingScreen } from "./loading";
@@ -40,6 +41,7 @@ function getMenuHeaderHtml() {
             class="main-menu__search-input"
             placeholder="Nach Stadt suchen..."
           />
+          <div class="main-menu__search-results"></div>
         </div>
     
     
@@ -114,6 +116,24 @@ async function getCityListHtml() {
     `;
 }
 
+function renderSearchResults(searchResults) {
+  const searchResultsElements = searchResults.map(
+    (result) => ` 
+          <div class="search-result">
+              <h3 class="search-result__name">${result.name}</h3>
+              <p class="search-result__country">${result.country}</p>
+          </div>
+    
+    `,
+  );
+
+  const searchResultsHtml = searchResultsElements.join("");
+
+  const searchResultsDiv = document.querySelector(".main-menu__search-results");
+
+  searchResultsDiv.innerHTML = searchResultsHtml;
+}
+
 function registerEventListeners() {
   const editButton = document.querySelector(".main-menu__edit");
   const deleteButtons = document.querySelectorAll(".city-wrapper__delete");
@@ -143,6 +163,21 @@ function registerEventListeners() {
         btn.classList.remove("city-wrapper__delete--show");
       });
     }
+  });
+
+  const searchBar = document.querySelector(".main-menu__search-input");
+
+  searchBar.addEventListener("input", async (e) => {
+    const q = e.target.value;
+
+    let searchResults = [];
+
+    if (q.length > 1) {
+      searchResults = await searchLocation(q);
+      console.log(searchResults);
+    }
+
+    renderSearchResults(searchResults);
   });
 
   const cities = document.querySelectorAll(".city");
