@@ -153,6 +153,20 @@ function registerSearchResultsEventListeners() {
   });
 }
 
+function bodyClickHandler(e) {
+  const searchWrapper = document.querySelector(".main-menu__search-bar");
+
+  if (!searchWrapper) {
+    document.removeEventListener("click", bodyClickHandler);
+    return;
+  }
+
+  if (!searchWrapper.contains(e.target)) {
+    const searchResults = document.querySelector(".main-menu__search-results");
+    searchResults.classList.add("main-menu__search-results--hidden");
+  }
+}
+
 function registerEventListeners() {
   const editButton = document.querySelector(".main-menu__edit");
   const deleteButtons = document.querySelectorAll(".city-wrapper__delete");
@@ -198,6 +212,13 @@ function registerEventListeners() {
 
     renderSearchResults(searchResults);
     registerSearchResultsEventListeners();
+  });
+
+  document.addEventListener("click", bodyClickHandler);
+
+  searchBar.addEventListener("focusin", () => {
+    const searchResults = document.querySelector(".main-menu__search-results");
+    searchResults.classList.remove("main-menu__search-results--hidden");
   });
 
   const cities = document.querySelectorAll(".city");
