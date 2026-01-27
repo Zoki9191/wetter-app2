@@ -13,7 +13,7 @@ export function get24HoursForecastFromNow(forecast, lastUpdatedEpoch) {
   const newForecast = [];
 
   const firstFutureTimeIndex = todaysForecast.findIndex(
-    (hour) => hour.time_epoch > lastUpdatedEpoch
+    (hour) => hour.time_epoch > lastUpdatedEpoch,
   );
 
   for (let i = firstFutureTimeIndex - 1; i < todaysForecast.length; i++) {
@@ -52,4 +52,16 @@ export function formatToMilitaryTime(time) {
   const newHour = Number(hour) + 12;
 
   return newHour + ":" + minutes;
+}
+
+export function debounce(callback, wait) {
+  let timeoutId = null;
+
+  return (...args) => {
+    window.clearTimeout(timeoutId);
+
+    timeoutId = window.setTimeout(() => {
+      callback.apply(null, args);
+    }, wait);
+  };
 }
