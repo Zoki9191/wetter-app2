@@ -83,9 +83,14 @@
 }
 
 .city-wrapper {
-  display: flex;
+  // display: flex;
   align-items: center;
   gap: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Maximal 2 Zeilen */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &__delete {
     display: none;

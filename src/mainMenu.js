@@ -173,7 +173,7 @@ function registerEventListeners() {
 
   deleteButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      removeCityFromFavorites(btn.getAttribute("data-city-name"));
+      removeCityFromFavorites(btn.getAttribute("data-city-id"));
       btn.parentElement.remove();
     });
   });
